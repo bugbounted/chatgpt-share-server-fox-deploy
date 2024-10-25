@@ -3,12 +3,12 @@ set -e
 
 ## 克隆仓库到本地
 echo "clone repository..."
-git clone -b deploy  --depth=1 https://github.com/xyhelper/chatgpt-share-server-deploy.git chatgpt-share
+git clone -b deploy  --depth=1 https://github.com/xiaomifengd/chatgpt-share-fox-deploy.git chatgpt-share-fox
 
 ## 进入目录
-cd chatgpt-share
+cd chatgpt-share-fox
 
-docker compose pull
+# docker compose pull
 docker compose up -d --remove-orphans
 
 ## 提示信息
