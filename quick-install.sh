@@ -3,7 +3,7 @@ set -e
 
 ## 克隆仓库到本地
 echo "clone repository..."
-git clone -b deploy  --depth=1 https://github.com/xiaomifengd/chatgpt-share-fox-deploy.git chatgpt-share-fox
+git  --depth=1 https://github.com/xiaomifengd/chatgpt-share-fox-deploy.git chatgpt-share-fox
 
 ## 进入目录
 cd chatgpt-share-fox
