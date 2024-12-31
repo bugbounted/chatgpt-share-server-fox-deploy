@@ -33,30 +33,11 @@ services:
       # 接入网关的authkey
       AUTHKEY: "xyhelper"
       # 内容审核及速率限制
-      AUDIT_LIMIT_URL: "http://auditlimit:8080/audit_limit"
+      AUDIT_LIMIT_URL: "http://chatgpt-share-server-fox:6956/api/auditLimit"
+      APIAUTH: Doraemon
     volumes:
       - ./config.yaml:/app/config.yaml
       - ./data/chatgpt-share-server/:/app/data/
-    labels:
-      - "com.centurylinklabs.watchtower.scope=xyhelper-chatgpt-share-server"
-  auditlimit:
-    image: xyhelper/auditlimit
-    restart: always
-    # ports:
-    #   - 9611:8080
-    environment:
-      LIMIT: 40  # 限制每个userToken允许的次数
-      PER: "3h" # 限制周期 1s, 1m, 1h, 1d, 1w, 1y
-    labels:
-      - "com.centurylinklabs.watchtower.scope=xyhelper-chatgpt-share-server"
-  watchtower:
-    image: containrrr/watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    command: --scope xyhelper-chatgpt-share-server --cleanup
-    restart: always
-    environment:
-      - TZ=Asia/Shanghai
     labels:
       - "com.centurylinklabs.watchtower.scope=xyhelper-chatgpt-share-server"
   chatgpt-share-server-fox:
@@ -79,6 +60,6 @@ services:
       O1_PREVIEW_PER: 1w # o1-preview模型限制周期 请填写1s,1m,1h,1d,1w,1M,1y的形式
       O1_MINI_LIMIT: 50 #o1-mini模型限制次数，填写0则不限制
       O1_MINI_PER: 1d # o1-mini模型限制周期 请填写1s,1m,1h,1d,1w,1M,1y的形式
-      APIAUTH: expander  # 该值为演示，请填写复杂度高的值，字母数字大小写均可，与上面的APIAUTH值要一致
+      APIAUTH: Doraemon 
     volumes:
       - ./data/chatgpt-share-server-fox/logs/:/tmp/logs
