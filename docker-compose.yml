@@ -44,7 +44,7 @@ services:
     image: xiaomifengd/chatgpt-share-server-fox:latest
     restart: always
     ports:
-      - "8400:8080"
+      - "8400:6956"
     depends_on:
       - mysql
       - chatgpt-share-server
