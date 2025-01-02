@@ -21,7 +21,7 @@ sed -i "s|CHATPROXY: \".*\"|CHATPROXY: \"$CHATPROXY\"|" docker-compose.yml
 
 # cat docker-compose.yml
 # docker compose pull
-docker compose up -d --remove-orphans
+# docker compose up -d --remove-orphans
 
 ## 提示信息
 echo "服务启动成功，请访问 http://localhost:8300"
