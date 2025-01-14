@@ -34,6 +34,7 @@ services:
       AUTHKEY: "xyhelper"
       # 内容审核及速率限制
       AUDIT_LIMIT_URL: "http://chatgpt-share-server-fox:6956/api/auditLimit"
+      OAUTH_URL: "http://chatgpt-share-server-fox:6956/api/chatShareServer/oauth"
       APIAUTH: Doraemon
     volumes:
       - ./config.yaml:/app/config.yaml
