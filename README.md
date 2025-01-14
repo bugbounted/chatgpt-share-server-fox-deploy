@@ -6,7 +6,7 @@
 本项目基于以下优秀的开源项目进行开发:
 
 - [xyhelper/chatgpt-share-server](https://github.com/xyhelper/chatgpt-share-server) - 提供了核心的ChatGPT共享服务功能
-- [wozulong/fuclaude](https://github.com/wozulong/fuclaude) - 提供了基础的前端界面实现
+- [wozulong/fuclaude](https://github.com/wozulong/fuclaude) - 提供了claude支持
 
 感谢栋哥和始皇！
 
@@ -26,8 +26,8 @@
 | 用户速率限制 | ✅ | 不同用户不同速率限制 |
 | 违禁词管理 | ✅ | 出发违禁词停止对话 |
 | 对话导出 | ✅ | 支持导出聊天记录 |
-| 图片生成 | ✅ | 支持DALL-E图片生成 |
 | 邀请返现 | ⏳ | 还在开发中 |
+| 更多功能 | ⏳ | 还在开发中 |
 
 
 更多功能，请访问：[🌟 点击这里查看演示站点 🌟](https://demo.987234.xyz/)
@@ -38,8 +38,8 @@
 ```bash
 curl -sSfL https://raw.githubusercontent.com/xiaomifengD/chatgpt-share-fox-deploy/refs/heads/main/quick-install.sh | bash
 ```
-> **安装文档地址：** [点击查看详细安装文档](https://docs.qq.com/aio/DYWt6cWVxeFZkUWNO?p=pbHV3aUCe5x5aXW0bWQxgF)
+> ## **安装文档地址：** [点击查看详细安装文档](https://docs.qq.com/aio/DYWt6cWVxeFZkUWNO?p=pbHV3aUCe5x5aXW0bWQxgF)
 
 
 如果你想使用我的程序，加我微信交流
-![添加我的个人微信](wx.jpg)
+![添加我的个人微信](wx.jpg){width=100px height=100px}
