@@ -3,8 +3,8 @@ database:
     type: "mysql" # 数据库类型
     host: "mysql" # 数据库地址
     port: "3306" # 数据库端口
-    user: "root" # 数据库用户名
-    pass: "123456" # 数据库密码
+    user: "cool" # 数据库用户名
+    pass: "123123" # 数据库密码
     name: "cool" # 数据库名称
     charset: "utf8mb4" # 数据库编码
     timezone: "Asia/Shanghai" # 数据库时区

@@ -18,6 +18,12 @@
 --
 -- Table structure for table `base_eps_admin`
 --
+create database if not exists claude_cool;
+use claude_cool;
+
+create user if not exists 'claude_cool'@'%' identified by '123123';
+grant all privileges on claude_cool.* to 'claude_cool'@'%';
+flush privileges;
 
 DROP TABLE IF EXISTS `base_eps_admin`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -227,7 +233,7 @@ CREATE TABLE `base_sys_menu` (
 
 LOCK TABLES `base_sys_menu` WRITE;
 /*!40000 ALTER TABLE `base_sys_menu` DISABLE KEYS */;
-INSERT INTO `base_sys_menu` VALUES (1,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,NULL,'工作台','/',NULL,0,'icon-workbench',1,NULL,1,1),(2,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,NULL,'系统管理','/sys',NULL,0,'icon-system',2,NULL,1,1),(8,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,27,'菜单列表','/sys/menu',NULL,1,'icon-menu',2,'cool/modules/base/views/menu.vue',1,1),(10,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,8,'新增',NULL,'base:sys:menu:add',2,NULL,1,NULL,0,1),(11,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,8,'删除',NULL,'base:sys:menu:delete',2,NULL,2,NULL,0,1),(12,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,8,'修改',NULL,'base:sys:menu:update',2,NULL,3,NULL,0,1),(13,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,8,'查询',NULL,'base:sys:menu:page,base:sys:menu:list,base:sys:menu:info',2,NULL,4,NULL,0,1),(22,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,27,'角色列表','/sys/role',NULL,1,'icon-common',3,'cool/modules/base/views/role.vue',1,1),(23,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,22,'新增',NULL,'base:sys:role:add',2,NULL,1,NULL,0,1),(24,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,22,'删除',NULL,'base:sys:role:delete',2,NULL,2,NULL,0,1),(25,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,22,'修改',NULL,'base:sys:role:update',2,NULL,3,NULL,0,1),(26,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,22,'查询',NULL,'base:sys:role:page,base:sys:role:list,base:sys:role:info',2,NULL,4,NULL,0,1),(27,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,2,'权限管理',NULL,NULL,0,'icon-auth',1,NULL,0,1),(29,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,105,'请求日志','/sys/log',NULL,1,'icon-log',1,'cool/modules/base/views/log.vue',1,1),(30,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,29,'权限',NULL,'base:sys:log:page,base:sys:log:clear,base:sys:log:getKeep,base:sys:log:setKeep',2,NULL,1,NULL,0,1),(59,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,97,'部门列表',NULL,'base:sys:department:list',2,NULL,0,NULL,1,1),(60,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,97,'新增部门',NULL,'base:sys:department:add',2,NULL,0,NULL,1,1),(61,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,97,'更新部门',NULL,'base:sys:department:update',2,NULL,0,NULL,1,1),(62,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,97,'删除部门',NULL,'base:sys:department:delete',2,NULL,0,NULL,1,1),(63,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,97,'部门排序',NULL,'base:sys:department:order',2,NULL,0,NULL,1,1),(65,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,97,'用户转移',NULL,'base:sys:user:move',2,NULL,0,NULL,1,1),(78,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,2,'参数配置',NULL,NULL,0,'icon-common',4,NULL,1,1),(79,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,78,'参数列表','/sys/param',NULL,1,'icon-menu',0,'cool/modules/base/views/param.vue',1,1),(80,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,79,'新增',NULL,'base:sys:param:add',2,NULL,0,NULL,1,1),(81,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,79,'修改',NULL,'base:sys:param:info,base:sys:param:update',2,NULL,0,NULL,1,1),(82,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,79,'删除',NULL,'base:sys:param:delete',2,NULL,0,NULL,1,1),(83,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,79,'查看',NULL,'base:sys:param:page,base:sys:param:list,base:sys:param:info',2,NULL,0,NULL,1,1),(84,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,NULL,'通用',NULL,NULL,0,'icon-radioboxfill',99,NULL,1,0),(85,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,84,'图片上传',NULL,'space:info:page,space:info:list,space:info:info,space:info:add,space:info:delete,space:info:update,space:type:page,space:type:list,space:type:info,space:type:add,space:type:delete,space:type:update',2,NULL,1,NULL,1,1),(90,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,84,'客服聊天',NULL,'base:app:im:message:read,base:app:im:message:page,base:app:im:session:page,base:app:im:session:list,base:app:im:session:unreadCount,base:app:im:session:delete',2,NULL,0,NULL,1,1),(97,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,27,'用户列表','/sys/user',NULL,1,'icon-user',0,'cool/modules/base/views/user.vue',1,1),(98,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,97,'新增',NULL,'base:sys:user:add',2,NULL,0,NULL,1,1),(99,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,97,'删除',NULL,'base:sys:user:delete',2,NULL,0,NULL,1,1),(100,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,97,'修改',NULL,'base:sys:user:delete,base:sys:user:update',2,NULL,0,NULL,1,1),(101,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,97,'查询',NULL,'base:sys:user:page,base:sys:user:list,base:sys:user:info',2,NULL,0,NULL,1,1),(105,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,2,'监控管理',NULL,NULL,0,'icon-rank',6,NULL,1,1),(117,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,NULL,'任务管理',NULL,NULL,0,'icon-activity',5,NULL,1,1),(118,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,117,'任务列表','/task',NULL,1,'icon-menu',0,'cool/modules/task/views/task.vue',1,1),(119,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,118,'权限',NULL,'task:info:page,task:info:list,task:info:info,task:info:add,task:info:delete,task:info:update,task:info:stop,task:info:start,task:info:once,task:info:log',2,NULL,0,NULL,1,1),(197,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,NULL,'字典管理',NULL,NULL,0,'icon-log',3,NULL,1,1),(198,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,197,'字典列表','/dict/list',NULL,1,'icon-menu',1,'modules/dict/views/list.vue',1,1),(199,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,198,'删除',NULL,'dict:info:delete',2,NULL,0,NULL,1,1),(200,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,198,'修改',NULL,'dict:info:update,dict:info:info',2,NULL,0,NULL,1,1),(201,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,198,'获得字典数据',NULL,'dict:info:data',2,NULL,0,NULL,1,1),(202,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,198,'单个信息',NULL,'dict:info:info',2,NULL,0,NULL,1,1),(203,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,198,'列表查询',NULL,'dict:info:list',2,NULL,0,NULL,1,1),(204,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,198,'分页查询',NULL,'dict:info:page',2,NULL,0,NULL,1,1),(205,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,198,'新增',NULL,'dict:info:add',2,NULL,0,NULL,1,1),(206,'2024-01-01 13:14:56.605','2024-01-01 13:14:56.605',NULL,198,'组权限',NULL,'dict:type:list,dict:type:update,dict:type:delete,dict:type:add',2,NULL,0,NULL,1,1),(207,'2024-01-01 19:37:47.375','2024-01-01 19:37:47.375',NULL,1,'账号管理','/chatgpt/session',NULL,1,'icon-command',1,'modules/chatgpt/views/session.vue',1,1),(208,'2024-01-01 19:37:48.749','2024-01-01 19:37:48.749',NULL,207,'add',NULL,'chatgpt:session:add',2,NULL,0,NULL,1,1),(209,'2024-01-01 19:37:48.749','2024-01-01 19:37:48.749',NULL,207,'delete',NULL,'chatgpt:session:delete',2,NULL,0,NULL,1,1),(210,'2024-01-01 19:37:48.749','2024-01-01 19:37:48.749',NULL,207,'info',NULL,'chatgpt:session:info',2,NULL,0,NULL,1,1),(211,'2024-01-01 19:37:48.749','2024-01-01 19:37:48.749',NULL,207,'list',NULL,'chatgpt:session:list',2,NULL,0,NULL,1,1),(212,'2024-01-01 19:37:48.749','2024-01-01 19:37:48.749',NULL,207,'page',NULL,'chatgpt:session:page',2,NULL,0,NULL,1,1),(213,'2024-01-01 19:37:48.749','2024-01-01 19:37:48.749',NULL,207,'update',NULL,'chatgpt:session:update,chatgpt:session:info',2,NULL,0,NULL,1,1),(214,'2024-01-01 19:53:18.214','2024-01-01 19:53:18.214',NULL,1,'用户管理','/chatgpt/user',NULL,1,'icon-user',2,'modules/chatgpt/views/user.vue',1,1),(215,'2024-01-01 19:53:19.581','2024-01-01 19:53:19.581',NULL,214,'add',NULL,'chatgpt:user:add',2,NULL,0,NULL,1,1),(216,'2024-01-01 19:53:19.581','2024-01-01 19:53:19.581',NULL,214,'delete',NULL,'chatgpt:user:delete',2,NULL,0,NULL,1,1),(217,'2024-01-01 19:53:19.581','2024-01-01 19:53:19.581',NULL,214,'info',NULL,'chatgpt:user:info',2,NULL,0,NULL,1,1),(218,'2024-01-01 19:53:19.581','2024-01-01 19:53:19.581',NULL,214,'list',NULL,'chatgpt:user:list',2,NULL,0,NULL,1,1),(219,'2024-01-01 19:53:19.581','2024-01-01 19:53:19.581',NULL,214,'page',NULL,'chatgpt:user:page',2,NULL,0,NULL,1,1),(220,'2024-01-01 19:53:19.581','2024-01-01 19:53:19.581',NULL,214,'update',NULL,'chatgpt:user:update,chatgpt:user:info',2,NULL,0,NULL,1,1),(221,'2024-01-07 12:29:55.677','2024-01-07 12:29:55.677',NULL,1,'会话管理','/chatgpt/conversations',NULL,1,'icon-menu',3,'modules/chatgpt/views/conversations.vue',1,1),(222,'2024-01-07 12:29:57.263','2024-01-07 12:29:57.263',NULL,221,'add',NULL,'chatgpt:conversations:add',2,NULL,0,NULL,1,1),(223,'2024-01-07 12:29:57.263','2024-01-07 12:29:57.263',NULL,221,'delete',NULL,'chatgpt:conversations:delete',2,NULL,0,NULL,1,1),(224,'2024-01-07 12:29:57.263','2024-01-07 12:29:57.263',NULL,221,'info',NULL,'chatgpt:conversations:info',2,NULL,0,NULL,1,1),(225,'2024-01-07 12:29:57.263','2024-01-07 12:29:57.263',NULL,221,'list',NULL,'chatgpt:conversations:list',2,NULL,0,NULL,1,1),(226,'2024-01-07 12:29:57.263','2024-01-07 12:29:57.263',NULL,221,'page',NULL,'chatgpt:conversations:page',2,NULL,0,NULL,1,1),(227,'2024-01-07 12:29:57.263','2024-01-07 12:29:57.263',NULL,221,'update',NULL,'chatgpt:conversations:update,chatgpt:conversations:info',2,NULL,0,NULL,1,1);
+INSERT INTO `base_sys_menu` VALUES (1,'2019-09-11 11:14:44.000','2019-11-18 15:56:36.000',NULL,NULL,'工作台','/',NULL,0,'icon-workbench',1,NULL,1,1),(2,'2019-09-11 11:14:47.000','2021-02-27 17:16:05.000',NULL,NULL,'系统管理','/sys',NULL,0,'icon-system',2,NULL,1,1),(8,'1900-01-20 23:19:57.000','2021-03-08 22:59:12.000',NULL,27,'菜单列表','/sys/menu',NULL,1,'icon-menu',2,'cool/modules/base/views/menu.vue',1,1),(10,'1900-01-20 00:19:27.325','1900-01-20 00:19:27.325',NULL,8,'新增',NULL,'base:sys:menu:add',2,NULL,1,NULL,0,1),(11,'1900-01-20 00:19:51.101','1900-01-20 00:19:51.101',NULL,8,'删除',NULL,'base:sys:menu:delete',2,NULL,2,NULL,0,1),(12,'1900-01-20 00:20:05.150','1900-01-20 00:20:05.150',NULL,8,'修改',NULL,'base:sys:menu:update',2,NULL,3,NULL,0,1),(13,'1900-01-20 00:20:19.341','1900-01-20 00:20:19.341',NULL,8,'查询',NULL,'base:sys:menu:page,base:sys:menu:list,base:sys:menu:info',2,NULL,4,NULL,0,1),(22,'2019-09-12 00:34:01.000','2021-03-08 22:59:23.000',NULL,27,'角色列表','/sys/role',NULL,1,'icon-common',3,'cool/modules/base/views/role.vue',1,1),(23,'1900-01-20 00:34:23.459','1900-01-20 00:34:23.459',NULL,22,'新增',NULL,'base:sys:role:add',2,NULL,1,NULL,0,1),(24,'1900-01-20 00:34:40.523','1900-01-20 00:34:40.523',NULL,22,'删除',NULL,'base:sys:role:delete',2,NULL,2,NULL,0,1),(25,'1900-01-20 00:34:53.306','1900-01-20 00:34:53.306',NULL,22,'修改',NULL,'base:sys:role:update',2,NULL,3,NULL,0,1),(26,'1900-01-20 00:35:05.024','1900-01-20 00:35:05.024',NULL,22,'查询',NULL,'base:sys:role:page,base:sys:role:list,base:sys:role:info',2,NULL,4,NULL,0,1),(27,'2019-09-12 15:52:44.000','2019-09-15 22:11:56.000',NULL,2,'权限管理',NULL,NULL,0,'icon-auth',1,NULL,0,1),(29,'2019-09-12 17:35:51.000','2021-03-08 23:01:39.000',NULL,105,'请求日志','/sys/log',NULL,1,'icon-log',1,'cool/modules/base/views/log.vue',1,1),(30,'2019-09-12 17:37:03.000','2021-03-03 10:16:26.000',NULL,29,'权限',NULL,'base:sys:log:page,base:sys:log:clear,base:sys:log:getKeep,base:sys:log:setKeep',2,NULL,1,NULL,0,1),(43,'2019-11-07 14:22:34.000','2021-03-08 23:02:51.000','2025-02-28 18:53:05.676',45,'crud 示例','/crud',NULL,1,'icon-favor',1,'cool/modules/demo/views/crud.vue',1,1),(45,'2019-11-07 22:36:57.000','2019-11-11 15:21:10.000','2025-02-28 18:53:05.667',1,'组件库','/ui-lib',NULL,0,'icon-common',2,NULL,1,1),(47,'2019-11-08 09:35:08.000','2021-02-27 17:16:35.000','2025-02-28 18:52:54.707',NULL,'框架教程','/tutorial',NULL,0,'icon-task',4,NULL,1,1),(48,'2019-11-08 09:35:53.000','2021-03-03 11:03:21.000','2025-02-28 18:52:54.714',47,'文档','/tutorial/doc',NULL,1,'icon-log',0,'https://cool-js.com',1,1),(49,'2019-11-09 22:11:13.000','2021-03-09 09:50:46.000','2025-02-28 18:53:05.676',45,'quill 富文本编辑器','/editor-quill',NULL,1,'icon-favor',2,'cool/modules/demo/views/editor-quill.vue',1,1),(59,'2019-11-18 16:50:27.000','2019-11-18 16:50:27.000',NULL,97,'部门列表',NULL,'base:sys:department:list',2,NULL,0,NULL,1,1),(60,'2019-11-18 16:50:45.000','2019-11-18 16:50:45.000',NULL,97,'新增部门',NULL,'base:sys:department:add',2,NULL,0,NULL,1,1),(61,'2019-11-18 16:50:59.000','2019-11-18 16:50:59.000',NULL,97,'更新部门',NULL,'base:sys:department:update',2,NULL,0,NULL,1,1),(62,'2019-11-18 16:51:13.000','2019-11-18 16:51:13.000',NULL,97,'删除部门',NULL,'base:sys:department:delete',2,NULL,0,NULL,1,1),(63,'2019-11-18 17:49:35.000','2019-11-18 17:49:35.000',NULL,97,'部门排序',NULL,'base:sys:department:order',2,NULL,0,NULL,1,1),(65,'2019-11-18 23:59:21.000','2019-11-18 23:59:21.000',NULL,97,'用户转移',NULL,'base:sys:user:move',2,NULL,0,NULL,1,1),(78,'2019-12-10 13:27:56.000','2021-02-27 17:08:53.000',NULL,2,'参数配置',NULL,NULL,0,'icon-common',4,NULL,1,1),(79,'1900-01-20 13:29:33.000','2021-03-08 23:01:48.000',NULL,78,'参数列表','/sys/param',NULL,1,'icon-menu',0,'cool/modules/base/views/param.vue',1,1),(80,'1900-01-20 13:29:50.146','1900-01-20 13:29:50.146',NULL,79,'新增',NULL,'base:sys:param:add',2,NULL,0,NULL,1,1),(81,'1900-01-20 13:30:10.030','1900-01-20 13:30:10.030',NULL,79,'修改',NULL,'base:sys:param:info,base:sys:param:update',2,NULL,0,NULL,1,1),(82,'1900-01-20 13:30:25.791','1900-01-20 13:30:25.791',NULL,79,'删除',NULL,'base:sys:param:delete',2,NULL,0,NULL,1,1),(83,'1900-01-20 13:30:40.469','1900-01-20 13:30:40.469',NULL,79,'查看',NULL,'base:sys:param:page,base:sys:param:list,base:sys:param:info',2,NULL,0,NULL,1,1),(84,'2020-07-25 16:21:30.000','2020-07-25 16:21:30.000',NULL,NULL,'通用',NULL,NULL,0,'icon-radioboxfill',99,NULL,1,0),(85,'2020-07-25 16:22:14.000','2021-03-03 10:36:00.000',NULL,84,'图片上传',NULL,'space:info:page,space:info:list,space:info:info,space:info:add,space:info:delete,space:info:update,space:type:page,space:type:list,space:type:info,space:type:add,space:type:delete,space:type:update',2,NULL,1,NULL,1,1),(86,'2020-08-12 09:56:27.000','2021-03-08 23:03:03.000','2025-02-28 18:53:05.676',45,'文件上传','/upload',NULL,1,'icon-favor',3,'cool/modules/demo/views/upload.vue',1,1),(90,'1900-01-20 10:26:58.615','1900-01-20 10:26:58.615',NULL,84,'客服聊天',NULL,'base:app:im:message:read,base:app:im:message:page,base:app:im:session:page,base:app:im:session:list,base:app:im:session:unreadCount,base:app:im:session:delete',2,NULL,0,NULL,1,1),(96,'2021-01-12 14:12:20.000','2021-03-08 23:02:40.000','2025-02-28 18:53:03.223',1,'组件预览','/demo',NULL,1,'icon-favor',0,'cool/modules/demo/views/demo.vue',1,1),(97,'1900-01-20 14:14:02.000','2021-03-09 11:03:09.000',NULL,27,'用户列表','/sys/user',NULL,1,'icon-user',0,'cool/modules/base/views/user.vue',1,1),(98,'1900-01-20 14:14:13.528','1900-01-20 14:14:13.528',NULL,97,'新增',NULL,'base:sys:user:add',2,NULL,0,NULL,1,1),(99,'1900-01-20 14:14:22.823','1900-01-20 14:14:22.823',NULL,97,'删除',NULL,'base:sys:user:delete',2,NULL,0,NULL,1,1),(100,'1900-01-20 14:14:33.973','1900-01-20 14:14:33.973',NULL,97,'修改',NULL,'base:sys:user:delete,base:sys:user:update',2,NULL,0,NULL,1,1),(101,'2021-01-12 14:14:51.000','2021-01-12 14:14:51.000',NULL,97,'查询',NULL,'base:sys:user:page,base:sys:user:list,base:sys:user:info',2,NULL,0,NULL,1,1),(105,'2021-01-21 10:42:55.000','2021-01-21 10:42:55.000',NULL,2,'监控管理',NULL,NULL,0,'icon-rank',6,NULL,1,1),(117,'2021-03-05 10:58:25.000','2021-03-05 10:58:25.000',NULL,NULL,'任务管理',NULL,NULL,0,'icon-activity',5,NULL,1,1),(118,'2021-03-05 10:59:42.000','2021-03-05 10:59:42.000',NULL,117,'任务列表','/task',NULL,1,'icon-menu',0,'cool/modules/task/views/task.vue',1,1),(119,'2021-03-05 11:00:00.000','2021-03-05 11:00:00.000',NULL,118,'权限',NULL,'task:info:page,task:info:list,task:info:info,task:info:add,task:info:delete,task:info:update,task:info:stop,task:info:start,task:info:once,task:info:log',2,NULL,0,NULL,1,1),(197,'2022-07-05 16:05:27.403','2022-07-05 16:15:16.025',NULL,NULL,'字典管理',NULL,NULL,0,'icon-log',3,NULL,1,1),(198,'2022-07-05 16:08:50.307','2022-07-05 16:14:13.196',NULL,197,'字典列表','/dict/list',NULL,1,'icon-menu',1,'modules/dict/views/list.vue',1,1),(199,'2022-07-05 16:08:50.748','2022-07-05 16:08:50.748',NULL,198,'删除',NULL,'dict:info:delete',2,NULL,0,NULL,1,1),(200,'2022-07-05 16:08:50.801','2022-07-05 16:08:50.801',NULL,198,'修改',NULL,'dict:info:update,dict:info:info',2,NULL,0,NULL,1,1),(201,'2022-07-05 16:08:50.859','2022-07-05 16:08:50.859',NULL,198,'获得字典数据',NULL,'dict:info:data',2,NULL,0,NULL,1,1),(202,'2022-07-05 16:08:50.917','2022-07-05 16:08:50.917',NULL,198,'单个信息',NULL,'dict:info:info',2,NULL,0,NULL,1,1),(203,'2022-07-05 16:08:50.973','2022-07-05 16:08:50.973',NULL,198,'列表查询',NULL,'dict:info:list',2,NULL,0,NULL,1,1),(204,'2022-07-05 16:08:51.031','2022-07-05 16:08:51.031',NULL,198,'分页查询',NULL,'dict:info:page',2,NULL,0,NULL,1,1),(205,'2022-07-05 16:08:51.088','2022-07-05 16:08:51.088',NULL,198,'新增',NULL,'dict:info:add',2,NULL,0,NULL,1,1),(206,'2022-07-06 10:41:26.503','2022-07-06 10:41:37.000',NULL,198,'组权限',NULL,'dict:type:list,dict:type:update,dict:type:delete,dict:type:add',2,NULL,0,NULL,1,1),(207,'2025-02-28 18:53:25.984','2025-02-28 18:53:25.984',NULL,1,'用户管理','/claude/user',NULL,1,'icon-user',0,'modules/claude/views/user.vue',1,1),(208,'2025-02-28 18:53:26.014','2025-02-28 18:53:26.014',NULL,207,'add',NULL,'claude:user:add',2,NULL,0,NULL,1,1),(209,'2025-02-28 18:53:26.014','2025-02-28 18:53:26.014',NULL,207,'delete',NULL,'claude:user:delete',2,NULL,0,NULL,1,1),(210,'2025-02-28 18:53:26.014','2025-02-28 18:53:26.014',NULL,207,'info',NULL,'claude:user:info',2,NULL,0,NULL,1,1),(211,'2025-02-28 18:53:26.014','2025-02-28 18:53:26.014',NULL,207,'list',NULL,'claude:user:list',2,NULL,0,NULL,1,1),(212,'2025-02-28 18:53:26.014','2025-02-28 18:53:26.014',NULL,207,'page',NULL,'claude:user:page',2,NULL,0,NULL,1,1),(213,'2025-02-28 18:53:26.014','2025-02-28 18:53:26.014',NULL,207,'update',NULL,'claude:user:update,claude:user:info',2,NULL,0,NULL,1,1),(214,'2025-02-28 18:53:42.405','2025-02-28 18:53:42.405',NULL,1,'账号管理','/claude/session',NULL,1,'icon-menu',0,'modules/claude/views/session.vue',1,1),(215,'2025-02-28 18:53:42.434','2025-02-28 18:53:42.434',NULL,214,'add',NULL,'claude:session:add',2,NULL,0,NULL,1,1),(216,'2025-02-28 18:53:42.434','2025-02-28 18:53:42.434',NULL,214,'delete',NULL,'claude:session:delete',2,NULL,0,NULL,1,1),(217,'2025-02-28 18:53:42.434','2025-02-28 18:53:42.434',NULL,214,'info',NULL,'claude:session:info',2,NULL,0,NULL,1,1),(218,'2025-02-28 18:53:42.434','2025-02-28 18:53:42.434',NULL,214,'list',NULL,'claude:session:list',2,NULL,0,NULL,1,1),(219,'2025-02-28 18:53:42.434','2025-02-28 18:53:42.434',NULL,214,'page',NULL,'claude:session:page',2,NULL,0,NULL,1,1),(220,'2025-02-28 18:53:42.434','2025-02-28 18:53:42.434',NULL,214,'update',NULL,'claude:session:update,claude:session:info',2,NULL,0,NULL,1,1),(221,'2025-02-28 18:54:04.218','2025-02-28 18:54:04.218',NULL,1,'历史记录','/claude/conversations',NULL,1,'icon-log',0,'modules/claude/views/conversations.vue',1,1),(222,'2025-02-28 18:54:04.245','2025-02-28 18:54:04.245',NULL,221,'add',NULL,'claude:conversations:add',2,NULL,0,NULL,1,1),(223,'2025-02-28 18:54:04.245','2025-02-28 18:54:04.245',NULL,221,'delete',NULL,'claude:conversations:delete',2,NULL,0,NULL,1,1),(224,'2025-02-28 18:54:04.245','2025-02-28 18:54:04.245',NULL,221,'info',NULL,'claude:conversations:info',2,NULL,0,NULL,1,1),(225,'2025-02-28 18:54:04.245','2025-02-28 18:54:04.245',NULL,221,'list',NULL,'claude:conversations:list',2,NULL,0,NULL,1,1),(226,'2025-02-28 18:54:04.245','2025-02-28 18:54:04.245',NULL,221,'page',NULL,'claude:conversations:page',2,NULL,0,NULL,1,1),(227,'2025-02-28 18:54:04.245','2025-02-28 18:54:04.245',NULL,221,'update',NULL,'claude:conversations:update,claude:conversations:info',2,NULL,0,NULL,1,1);
 /*!40000 ALTER TABLE `base_sys_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -428,46 +434,45 @@ INSERT INTO `base_sys_user_role` VALUES (1,'2024-01-01 13:14:57.348','2024-01-01
 UNLOCK TABLES;
 
 --
--- Table structure for table `chatgpt_conversations`
+-- Table structure for table `claude_conversations`
 --
 
-DROP TABLE IF EXISTS `chatgpt_conversations`;
+DROP TABLE IF EXISTS `claude_conversations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `chatgpt_conversations` (
+CREATE TABLE `claude_conversations` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `createTime` datetime(3) NOT NULL COMMENT '创建时间',
   `updateTime` datetime(3) NOT NULL COMMENT '更新时间',
   `deleted_at` datetime(3) DEFAULT NULL,
   `usertoken` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户token',
-  `convid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '会话id',
-  `title` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '会话标题',
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '官网账号邮箱',
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '会话id',
+  `title` text COLLATE utf8mb4_unicode_ci COMMENT '会话标题',
+  `content` longtext COLLATE utf8mb4_unicode_ci COMMENT '会话内容',
   PRIMARY KEY (`id`),
-  KEY `idx_chatgpt_conversations_conv_id` (`convid`),
-  KEY `idx_chatgpt_conversations_email` (`email`),
-  KEY `idx_chatgpt_conversations_deleted_at` (`deleted_at`),
-  KEY `idx_chatgpt_conversations_user_token` (`usertoken`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `idx_claude_conversations_deleted_at` (`deleted_at`),
+  KEY `idx_claude_conversations_user_token` (`usertoken`),
+  KEY `idx_claude_conversations_conv_id` (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `chatgpt_conversations`
+-- Dumping data for table `claude_conversations`
 --
 
-LOCK TABLES `chatgpt_conversations` WRITE;
-/*!40000 ALTER TABLE `chatgpt_conversations` DISABLE KEYS */;
-/*!40000 ALTER TABLE `chatgpt_conversations` ENABLE KEYS */;
+LOCK TABLES `claude_conversations` WRITE;
+/*!40000 ALTER TABLE `claude_conversations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `claude_conversations` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `chatgpt_session`
+-- Table structure for table `claude_session`
 --
 
-DROP TABLE IF EXISTS `chatgpt_session`;
+DROP TABLE IF EXISTS `claude_session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `chatgpt_session` (
+CREATE TABLE `claude_session` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `createTime` datetime(3) NOT NULL COMMENT '创建时间',
   `updateTime` datetime(3) NOT NULL COMMENT '更新时间',
@@ -475,52 +480,54 @@ CREATE TABLE `chatgpt_session` (
   `email` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '邮箱',
   `password` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '密码',
   `status` tinyint(1) DEFAULT '0' COMMENT '状态',
-  `isPlus` tinyint(1) DEFAULT '0' COMMENT 'PLUS',
-  `carID` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '展示ID',
+  `isPro` tinyint(1) DEFAULT '0' COMMENT 'Pro',
   `officialSession` longtext COLLATE utf8mb4_unicode_ci COMMENT '官方session',
   `remark` longtext COLLATE utf8mb4_unicode_ci COMMENT '备注',
+  `sort` bigint DEFAULT '0' COMMENT '排序',
+  `count` bigint DEFAULT '0' COMMENT '统计',
   PRIMARY KEY (`id`),
-  KEY `idx_chatgpt_session_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `idx_claude_session_deleted_at` (`deleted_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `chatgpt_session`
+-- Dumping data for table `claude_session`
 --
 
-LOCK TABLES `chatgpt_session` WRITE;
-/*!40000 ALTER TABLE `chatgpt_session` DISABLE KEYS */;
-/*!40000 ALTER TABLE `chatgpt_session` ENABLE KEYS */;
+LOCK TABLES `claude_session` WRITE;
+/*!40000 ALTER TABLE `claude_session` DISABLE KEYS */;
+/*!40000 ALTER TABLE `claude_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `chatgpt_user`
+-- Table structure for table `claude_user`
 --
 
-DROP TABLE IF EXISTS `chatgpt_user`;
+DROP TABLE IF EXISTS `claude_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `chatgpt_user` (
+CREATE TABLE `claude_user` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `createTime` datetime(3) NOT NULL COMMENT '创建时间',
   `updateTime` datetime(3) NOT NULL COMMENT '更新时间',
   `deleted_at` datetime(3) DEFAULT NULL,
   `userToken` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'UserToken',
   `expireTime` datetime(3) NOT NULL COMMENT '过期时间',
-  `isPlus` tinyint(1) DEFAULT '0' COMMENT 'PLUS',
+  `isPro` tinyint(1) DEFAULT '0' COMMENT 'Pro',
   `remark` longtext COLLATE utf8mb4_unicode_ci COMMENT '备注',
+  `count` bigint DEFAULT '0' COMMENT '统计',
   PRIMARY KEY (`id`),
-  KEY `idx_chatgpt_user_deleted_at` (`deleted_at`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `idx_claude_user_deleted_at` (`deleted_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `chatgpt_user`
+-- Dumping data for table `claude_user`
 --
 
-LOCK TABLES `chatgpt_user` WRITE;
-/*!40000 ALTER TABLE `chatgpt_user` DISABLE KEYS */;
-/*!40000 ALTER TABLE `chatgpt_user` ENABLE KEYS */;
+LOCK TABLES `claude_user` WRITE;
+/*!40000 ALTER TABLE `claude_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `claude_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
