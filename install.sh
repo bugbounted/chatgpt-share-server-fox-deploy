@@ -39,6 +39,9 @@ create_directories() {
     mkdir -p ./data/grok-share-server
     mkdir -p ./data/dddd-share-server
     mkdir -p ./data/chatgpt-share-server
+    mkdir -p ./data/chatgpt-share-server-fox/logs
+    mkdir -p ./data/chatgpt-share-server-fox/imageData
+    mkdir -p ./data/chatgpt-share-server-fox/file
     mkdir -p ./backups
 }
 
@@ -55,47 +58,73 @@ generate_docker_compose() {
         print_message "已备份现有 docker-compose.yml 文件到: ${backup_dir}/docker-compose-${timestamp}.yml"
     fi
     
-    cat > docker-compose.yml << 'EOL'
+    # 生成随机的APIAUTH (32位随机字符串)
+    APIAUTH=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+    # print_message "已生成随机APIAUTH: ${APIAUTH}"
+    
+    cat > docker-compose.yml << EOL
 version: '3.8'
 services:
   mysql:
-    image: mysql:8.0
-    command:  --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    image: mysql:8
+    command: --mysql-native-password=ON --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
     volumes:
       - ./data/mysql/:/var/lib/mysql/
       - ./docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
     environment:
-      TZ: Asia/Shanghai
-      MYSQL_ROOT_PASSWORD: "123456"
+      TZ: Asia/Shanghai # 指定时区
+      MYSQL_ROOT_PASSWORD: "123456" # 配置root用户密码
   redis:
     image: redis
+    # command: --requirepass "12345678" # redis库密码,不需要密码注释本行
     restart: always
     environment:
-      TZ: Asia/Shanghai
+      TZ: Asia/Shanghai # 指定时区
     volumes:
       - ./data/redis/:/data/
 EOL
 
     # 添加选中的服务
+    if [ "$INSTALL_GPT" = true ]; then
+        cat >> docker-compose.yml << EOL
+  chatgpt-share-server:
+    image: xyhelper/chatgpt-share-server:latest
+    restart: always
+    ports:
+      - 8300:8001
+    environment:
+      TZ: Asia/Shanghai # 指定时区
+      # 接入网关地址
+      CHATPROXY: "https://demo.xyhelper.cn"
+      # 接入网关的authkey
+      AUTHKEY: "xyhelper"
+      # 内容审核及速率限制
+      AUDIT_LIMIT_URL: "http://chatgpt-share-server-fox:6956/api/auditLimit"
+      OAUTH_URL: "http://chatgpt-share-server-fox:6956/api/chatShareServer/oauth"
+      APIAUTH: ${APIAUTH}
+    volumes:
+      - ./config.yaml:/app/config.yaml
+      - ./data/chatgpt-share-server/:/app/data/
+EOL
+    fi
+
     if [ "$INSTALL_GROK" = true ]; then
-        cat >> docker-compose.yml << 'EOL'
+        cat >> docker-compose.yml << EOL
+  ## grok-mirror
   grok-share-server:
     image: lyy0709/grok-share-server:dev
     restart: always
     ports:
       - 8301:8001
     environment:
-      TZ: Asia/Shanghai
-      PROXY_URL: "http://proxy:8080/proxy"
-      ORIGIN: "http://localhost:8300"
-      CHATPROXY: "http://chatproxy:8080/proxy"
-EOL
-        if [ "$INSTALL_AUDIT" = true ]; then
-            cat >> docker-compose.yml << 'EOL'
-      AUDIT_LIMIT_URL: "http://auditlimit:8080/audit_limit"
-EOL
-        fi
-        cat >> docker-compose.yml << 'EOL'
+      TZ: Asia/Shanghai # 指定时区
+      #PROXY_URL: "http://proxy:8080/proxy" # 代理服务地址,支持http和https，socks5，没有则留空默认走本地
+      #CHATPROXY: "http://chatproxy:8080/proxy" # 网关配置，留空则不使用网关走本地代理
+      # 内容审核及速率限制
+      AUDIT_LIMIT_URL: "http://chatgpt-share-server-fox:6956/api/grok/auditLimit"
+      OAUTH_URL: "http://chatgpt-share-server-fox:6956/api/chatShareServer/grok/oauth"
+      APIAUTH: ${APIAUTH}
     volumes:
       - ./grok_config.yaml:/app/config.yaml
       - ./data/grok-share-server/:/app/data/
@@ -103,62 +132,59 @@ EOL
     fi
 
     if [ "$INSTALL_DDD" = true ]; then
-        cat >> docker-compose.yml << 'EOL'
+        cat >> docker-compose.yml << EOL
+  ## claude-mirror
   dddd-share-server:
     image: lyy0709/dddd-share-server:dev
     restart: always
     ports:
       - 8302:8001
     environment:
-      TZ: Asia/Shanghai
-      PROXY_URL: "http://proxy:8080/proxy"
-      ORIGIN: "http://localhost:8300"
-      CHATPROXY: "https://chatproxy.com"
-EOL
-        if [ "$INSTALL_AUDIT" = true ]; then
-            cat >> docker-compose.yml << 'EOL'
-      AUDIT_LIMIT_URL: "http://auditlimit:8080/audit_limit"
-EOL
-        fi
-        cat >> docker-compose.yml << 'EOL'
+      TZ: Asia/Shanghai # 指定时区
+      #PROXY_URL: "http://proxy:8080/proxy" # 代理服务地址,支持http和https，socks5，没有则留空默认走本地
+      #CHATPROXY: "https://chatproxy.com"
+      # 内容审核及速率限制
+      AUDIT_LIMIT_URL: "http://chatgpt-share-server-fox:6956/api/claude/auditLimit"
+      OAUTH_URL: "http://chatgpt-share-server-fox:6956/api/chatShareServer/claude/oauth"
+      APIAUTH: ${APIAUTH}
     volumes:
       - ./claude_config.yaml:/app/config.yaml
       - ./data/dddd-share-server/:/app/data/
 EOL
     fi
 
-    if [ "$INSTALL_GPT" = true ]; then
-        cat >> docker-compose.yml << 'EOL'
-  chatgpt-share-server:
-    image: xyhelper/chatgpt-share-server:latest
+    # 如果安装了任何AI服务，都需要添加fox服务
+    if [ "$INSTALL_GPT" = true ] || [ "$INSTALL_GROK" = true ] || [ "$INSTALL_DDD" = true ]; then
+        cat >> docker-compose.yml << EOL
+  chatgpt-share-server-fox:
+    image: xiaomifengd/chatgpt-share-server-fox:latest
     restart: always
     ports:
-      - 8300:8001
-    environment:
-      TZ: Asia/Shanghai
-      CHATPROXY: "https://demo.xyhelper.cn"
-      AUTHKEY: "xyhelper"
+      - "8400:6956"
+    depends_on:
+      - mysql
 EOL
-        if [ "$INSTALL_AUDIT" = true ]; then
-            cat >> docker-compose.yml << 'EOL'
-      AUDIT_LIMIT_URL: "http://auditlimit:8080/audit_limit"
+        # 根据安装的服务添加依赖
+        if [ "$INSTALL_GPT" = true ]; then
+            cat >> docker-compose.yml << EOL
+      - chatgpt-share-server
 EOL
         fi
-        cat >> docker-compose.yml << 'EOL'
-    volumes:
-      - ./gpt_config.yaml:/app/config.yaml
-      - ./data/chatgpt-share-server/:/app/data/
-EOL
-    fi
-
-    if [ "$INSTALL_AUDIT" = true ]; then
-        cat >> docker-compose.yml << 'EOL'
-  auditlimit:
-    image: xyhelper/auditlimit
-    restart: always
+        
+        cat >> docker-compose.yml << EOL
     environment:
-      LIMIT: 40
-      PER: "3h"
+      TZ: Asia/Shanghai
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/cool?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+      SPRING_REDIS_PASSWORD: "" # 如果Redis没有设置密码，保持为空
+      APIAUTH: ${APIAUTH}
+    volumes:
+      - ./data/chatgpt-share-server-fox/logs/:/tmp/logs
+      - ./data/chatgpt-share-server-fox/imageData/:/data/upload
+      - ./data/chatgpt-share-server-fox/file/:/data/file
 EOL
     fi
 }
@@ -174,7 +200,6 @@ main() {
     INSTALL_GROK=false
     INSTALL_DDD=false
     INSTALL_GPT=false
-    INSTALL_AUDIT=false
     
     # 用户选择要安装的服务
     while true; do
@@ -204,15 +229,6 @@ main() {
         esac
     done
     
-    while true; do
-        read -p "是否安装内容审核和速率限制服务? (y/n): " yn < /dev/tty
-        case $yn in
-            [Yy]* ) INSTALL_AUDIT=true; break;;
-            [Nn]* ) break;;
-            * ) print_warning "请输入 y 或 n";;
-        esac
-    done
-    
     # 创建目录
     create_directories
     
@@ -237,6 +253,11 @@ main() {
     fi
     if [ "$INSTALL_GPT" = true ]; then
         echo -e "GPT: 8300 - GPT API服务"
+    fi
+    
+    # 如果安装了任何AI服务，显示fox管理后台
+    if [ "$INSTALL_GPT" = true ] || [ "$INSTALL_GROK" = true ] || [ "$INSTALL_DDD" = true ]; then
+        echo -e "Fox管理后台: http://域名:8400"
     fi
 
     # 打印后台地址

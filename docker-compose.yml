@@ -45,10 +45,10 @@ services:
     environment:
       TZ: Asia/Shanghai # 指定时区
       #PROXY_URL: "http://proxy:8080/proxy" # 代理服务地址,支持http和https，socks5，没有则留空默认走本地
-      CHATPROXY: "http://chatproxy:8080/proxy" # 网关配置，留空则不使用网关走本地代理
+      #CHATPROXY: "http://chatproxy:8080/proxy" # 网关配置，留空则不使用网关走本地代理
       # 内容审核及速率限制
       AUDIT_LIMIT_URL: "http://chatgpt-share-server-fox:6956/api/grok/auditLimit"
-      OAUTH_URL: "http://chatgpt-share-server-fox:6956/api/grok/oauth"
+      OAUTH_URL: "http://chatgpt-share-server-fox:6956/api/chatShareServer/grok/oauth"
       APIAUTH: Doraemon
     volumes:
       - ./grok_config.yaml:/app/config.yaml
@@ -62,10 +62,10 @@ services:
     environment:
       TZ: Asia/Shanghai # 指定时区
       #PROXY_URL: "http://proxy:8080/proxy" # 代理服务地址,支持http和https，socks5，没有则留空默认走本地
-      CHATPROXY: "https://chatproxy.com"
+      #CHATPROXY: "https://chatproxy.com"
       # 内容审核及速率限制
-      AUDIT_LIMIT_URL: "http://chatgpt-share-server-fox:6956/api/dddd/auditLimit"
-      OAUTH_URL: "http://chatgpt-share-server-fox:6956/api/dddd/oauth"
+      AUDIT_LIMIT_URL: "http://chatgpt-share-server-fox:6956/api/claude/auditLimit"
+      OAUTH_URL: "http://chatgpt-share-server-fox:6956/api/chatShareServer/claude/oauth"
       APIAUTH: Doraemon
     volumes:
       - ./claude_config.yaml:/app/config.yaml

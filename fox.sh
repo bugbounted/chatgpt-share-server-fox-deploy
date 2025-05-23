@@ -49,7 +49,7 @@ install_ai_services() {
     # 生成随机的APIAUTH (32位随机字符串)
     APIAUTH=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
     echo -e "${GREEN}已生成随机APIAUTH: ${APIAUTH}${NC}"
-    echo -e "${YELLOW}请保存此APIAUTH，后续接口调用时需要使用${NC}"
+    # echo -e "${YELLOW}请保存此APIAUTH，后续接口调用时需要使用${NC}"
     
     # 默认值
     DEFAULT_CHATPROXY=""
@@ -67,7 +67,7 @@ install_ai_services() {
     docker compose up -d --remove-orphans
     
     echo "服务启动成功，请自行配置反代"
-    echo -e "${GREEN}APIAUTH: ${APIAUTH}${NC}"
+    # echo -e "${GREEN}APIAUTH: ${APIAUTH}${NC}"
     
     echo "对fox 部署使用有任何疑问，请扫描二维码添加作者微信"
     echo   "█████████████████████████████████████
