@@ -58,9 +58,23 @@ generate_docker_compose() {
         print_message "已备份现有 docker-compose.yml 文件到: ${backup_dir}/docker-compose-${timestamp}.yml"
     fi
     
-    # 生成随机的APIAUTH (32位随机字符串)
-    APIAUTH=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
-    # print_message "已生成随机APIAUTH: ${APIAUTH}"
+    # 使用从fox.sh传递的APIAUTH，如果没有则生成随机的APIAUTH
+    if [ -n "$FOX_APIAUTH" ]; then
+        APIAUTH="$FOX_APIAUTH"
+        print_message "使用传递的APIAUTH配置"
+    else
+        APIAUTH=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+        print_message "已生成APIAUTH配置"
+    fi
+    
+    # 使用从fox.sh传递的网关地址，如果没有则使用默认值
+    if [ -n "$FOX_CHATPROXY" ]; then
+        CHATPROXY="$FOX_CHATPROXY"
+        print_message "使用传递的网关地址: ${CHATPROXY}"
+    else
+        CHATPROXY="https://demo.xyhelper.cn"
+        print_message "使用默认网关地址: ${CHATPROXY}"
+    fi
     
     cat > docker-compose.yml << EOL
 version: '3.8'
@@ -96,7 +110,7 @@ EOL
     environment:
       TZ: Asia/Shanghai # 指定时区
       # 接入网关地址
-      CHATPROXY: "https://demo.xyhelper.cn"
+      CHATPROXY: "${CHATPROXY}"
       # 接入网关的authkey
       AUTHKEY: "xyhelper"
       # 内容审核及速率限制
@@ -201,33 +215,43 @@ main() {
     INSTALL_DDD=false
     INSTALL_GPT=false
     
-    # 用户选择要安装的服务
-    while true; do
-        read -p "是否安装 Grok 服务? (y/n): " yn < /dev/tty
-        case $yn in
-            [Yy]* ) INSTALL_GROK=true; break;;
-            [Nn]* ) break;;
-            * ) print_warning "请输入 y 或 n";;
-        esac
-    done
-    
-    while true; do
-        read -p "是否安装 Claude (DDD) 服务? (y/n): " yn < /dev/tty
-        case $yn in
-            [Yy]* ) INSTALL_DDD=true; break;;
-            [Nn]* ) break;;
-            * ) print_warning "请输入 y 或 n";;
-        esac
-    done
-    
-    while true; do
-        read -p "是否安装 GPT 服务? (y/n): " yn < /dev/tty
-        case $yn in
-            [Yy]* ) INSTALL_GPT=true; break;;
-            [Nn]* ) break;;
-            * ) print_warning "请输入 y 或 n";;
-        esac
-    done
+    # 检查是否从fox.sh调用，如果是则使用环境变量中的配置
+    if [ -n "$FOX_APIAUTH" ]; then
+        print_message "检测到从fox.sh调用，使用预设配置..."
+        # 如果从fox.sh调用，默认安装所有服务，用户可以根据需要修改
+        INSTALL_GROK=true
+        INSTALL_DDD=true
+        INSTALL_GPT=true
+        print_message "将安装所有AI服务 (GPT, Grok, Claude)"
+    else
+        # 用户选择要安装的服务
+        while true; do
+            read -p "是否安装 Grok 服务? (y/n): " yn < /dev/tty
+            case $yn in
+                [Yy]* ) INSTALL_GROK=true; break;;
+                [Nn]* ) break;;
+                * ) print_warning "请输入 y 或 n";;
+            esac
+        done
+        
+        while true; do
+            read -p "是否安装 Claude (DDD) 服务? (y/n): " yn < /dev/tty
+            case $yn in
+                [Yy]* ) INSTALL_DDD=true; break;;
+                [Nn]* ) break;;
+                * ) print_warning "请输入 y 或 n";;
+            esac
+        done
+        
+        while true; do
+            read -p "是否安装 GPT 服务? (y/n): " yn < /dev/tty
+            case $yn in
+                [Yy]* ) INSTALL_GPT=true; break;;
+                [Nn]* ) break;;
+                * ) print_warning "请输入 y 或 n";;
+            esac
+        done
+    fi
     
     # 创建目录
     create_directories
@@ -235,13 +259,19 @@ main() {
     # 生成 docker-compose.yml
     generate_docker_compose
     
-    # 启动服务
-    print_message "正在启动服务..."
-    chmod +x restart.sh
-    ./restart.sh    
-    print_message "安装完成！"
-    print_message "服务状态："
-    docker compose  ps
+    # 检查是否从fox.sh调用，如果是则不在这里启动服务
+    if [ -z "$FOX_APIAUTH" ]; then
+        # 只有在直接运行install.sh时才启动服务
+        print_message "正在启动服务..."
+        chmod +x restart.sh
+        ./restart.sh    
+        print_message "安装完成！"
+        print_message "服务状态："
+        docker compose ps
+    else
+        # 从fox.sh调用时，只生成配置文件，不启动服务
+        print_message "配置文件生成完成！"
+    fi
     
     # 打印端口使用情况
     echo -e "\n${GREEN}[端口使用情况]${NC}"

@@ -44,33 +44,38 @@ install_ai_services() {
         return 1
     fi
     
-    echo "正在安装 fox 服务..."
+    # 检查install.sh是否存在
+    if [ ! -f "install.sh" ]; then
+        echo -e "${RED}未找到 install.sh 文件，请确保该文件存在于当前目录。${NC}"
+        return 1
+    fi
+    
+    echo -e "${GREEN}正在安装 AI 服务...${NC}"
     
     # 生成随机的APIAUTH (32位随机字符串)
     APIAUTH=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
-    echo -e "${GREEN}已生成随机APIAUTH: ${APIAUTH}${NC}"
-    # echo -e "${YELLOW}请保存此APIAUTH，后续接口调用时需要使用${NC}"
+    echo -e "${GREEN}已生成APIAUTH配置${NC}"
     
-    # 默认值
-    DEFAULT_CHATPROXY=""
-    echo -n "请输入xyhelper网关："
+    # 获取网关配置
+    DEFAULT_CHATPROXY="https://demo.xyhelper.cn"
+    echo -n "请输入xyhelper网关 (默认: ${DEFAULT_CHATPROXY})："
     read CHATPROXY < /dev/tty
     # 如果用户直接回车，使用默认值
     CHATPROXY=${CHATPROXY:-$DEFAULT_CHATPROXY}
-
-    # 使用sed替换CHATPROXY和APIAUTH值
-    # 使用 | 作为分隔符，因为URL中包含 /
-    sed -i "s|CHATPROXY: \".*\"|CHATPROXY: \"$CHATPROXY\"|" docker-compose.yml
-    sed -i "s|APIAUTH: \".*\"|APIAUTH: \"$APIAUTH\"|" docker-compose.yml
-
-    # 启动服务
-    docker compose up -d --remove-orphans
     
-    echo "服务启动成功，请自行配置反代"
-    # echo -e "${GREEN}APIAUTH: ${APIAUTH}${NC}"
+    # 导出环境变量供install.sh使用
+    export FOX_APIAUTH="$APIAUTH"
+    export FOX_CHATPROXY="$CHATPROXY"
     
-    echo "对fox 部署使用有任何疑问，请扫描二维码添加作者微信"
-    echo   "█████████████████████████████████████
+    echo -e "${BLUE}正在调用安装脚本...${NC}"
+    
+    # 给install.sh执行权限并运行
+    chmod +x install.sh
+    ./install.sh
+    
+        
+        echo "对fox 部署使用有任何疑问，请扫描二维码添加作者微信"
+        echo   "█████████████████████████████████████
 █████████████████████████████████████
 ████ ▄▄▄▄▄ ██▀▄██▀▀▀█▀█▀▀█ ▄▄▄▄▄ ████
 ████ █   █ █▄▀█▄██  ▄█▄███ █   █ ████
@@ -89,6 +94,10 @@ install_ai_services() {
 ████▄▄▄▄▄▄▄█▄▄██▄▄██████▄█▄▄▄▄█▄▄████
 █████████████████████████████████████
 █████████████████████████████████████"
+    else
+        echo -e "${RED}AI服务安装失败，请检查错误信息。${NC}"
+        return 1
+    fi
 }
 
 # Function to restart services
