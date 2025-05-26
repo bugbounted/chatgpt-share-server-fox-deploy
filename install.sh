@@ -218,11 +218,19 @@ main() {
     # 检查是否从fox.sh调用，如果是则使用环境变量中的配置
     if [ -n "$FOX_APIAUTH" ]; then
         print_message "检测到从fox.sh调用，使用预设配置..."
-        # 如果从fox.sh调用，默认安装所有服务，用户可以根据需要修改
-        INSTALL_GROK=true
-        INSTALL_DDD=true
-        INSTALL_GPT=true
-        print_message "将安装所有AI服务 (GPT, Grok, Claude)"
+        # 使用从fox.sh传递的服务选择
+        if [ "$FOX_INSTALL_GROK" = "true" ]; then
+            INSTALL_GROK=true
+            print_message "将安装 Grok 服务"
+        fi
+        if [ "$FOX_INSTALL_DDD" = "true" ]; then
+            INSTALL_DDD=true
+            print_message "将安装 Claude 服务"
+        fi
+        if [ "$FOX_INSTALL_GPT" = "true" ]; then
+            INSTALL_GPT=true
+            print_message "将安装 GPT 服务"
+        fi
     else
         # 用户选择要安装的服务
         while true; do
@@ -276,30 +284,18 @@ main() {
     # 打印端口使用情况
     echo -e "\n${GREEN}[端口使用情况]${NC}"
     if [ "$INSTALL_GROK" = true ]; then
-        echo -e "Grok: 8301 - Grok API服务"
+        echo -e "Grok: 8301"
     fi
     if [ "$INSTALL_DDD" = true ]; then
-        echo -e "Claude: 8302 - Claude API服务"
+        echo -e "Claude: 8302"
     fi
     if [ "$INSTALL_GPT" = true ]; then
-        echo -e "GPT: 8300 - GPT API服务"
+        echo -e "GPT: 8300"
     fi
     
     # 如果安装了任何AI服务，显示fox管理后台
     if [ "$INSTALL_GPT" = true ] || [ "$INSTALL_GROK" = true ] || [ "$INSTALL_DDD" = true ]; then
         echo -e "Fox管理后台: http://域名:8400"
-    fi
-
-    # 打印后台地址
-    echo -e "\n${GREEN}[后台管理地址]${NC}"
-    if [ "$INSTALL_GROK" = true ]; then
-        echo -e "Grok后台: http://域名/lyy0709"
-    fi
-    if [ "$INSTALL_DDD" = true ]; then
-        echo -e "Claude后台: http://域名/lyy0709"
-    fi
-    if [ "$INSTALL_GPT" = true ]; then
-        echo -e "GPT后台: http://域名/xyhelper"
     fi
 
     # 打印安全提醒

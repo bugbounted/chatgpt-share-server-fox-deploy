@@ -56,6 +56,38 @@ install_ai_services() {
     APIAUTH=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
     echo -e "${GREEN}已生成APIAUTH配置${NC}"
     
+    # 询问用户要安装哪些服务
+    INSTALL_GROK=false
+    INSTALL_DDD=false
+    INSTALL_GPT=false
+    
+    while true; do
+        read -p "是否安装 Grok 服务? (y/n): " yn < /dev/tty
+        case $yn in
+            [Yy]* ) INSTALL_GROK=true; break;;
+            [Nn]* ) break;;
+            * ) echo -e "${YELLOW}请输入 y 或 n${NC}";;
+        esac
+    done
+    
+    while true; do
+        read -p "是否安装 Claude (DDD) 服务? (y/n): " yn < /dev/tty
+        case $yn in
+            [Yy]* ) INSTALL_DDD=true; break;;
+            [Nn]* ) break;;
+            * ) echo -e "${YELLOW}请输入 y 或 n${NC}";;
+        esac
+    done
+    
+    while true; do
+        read -p "是否安装 GPT 服务? (y/n): " yn < /dev/tty
+        case $yn in
+            [Yy]* ) INSTALL_GPT=true; break;;
+            [Nn]* ) break;;
+            * ) echo -e "${YELLOW}请输入 y 或 n${NC}";;
+        esac
+    done
+    
     # 获取网关配置
     DEFAULT_CHATPROXY="https://demo.xyhelper.cn"
     echo -n "请输入xyhelper网关 (默认: ${DEFAULT_CHATPROXY})："
@@ -66,6 +98,9 @@ install_ai_services() {
     # 导出环境变量供install.sh使用
     export FOX_APIAUTH="$APIAUTH"
     export FOX_CHATPROXY="$CHATPROXY"
+    export FOX_INSTALL_GROK="$INSTALL_GROK"
+    export FOX_INSTALL_DDD="$INSTALL_DDD"
+    export FOX_INSTALL_GPT="$INSTALL_GPT"
     
     echo -e "${BLUE}正在调用安装脚本...${NC}"
     
@@ -73,7 +108,6 @@ install_ai_services() {
     chmod +x install.sh
     ./install.sh
     
-        
     echo "对fox 部署使用有任何疑问，请扫描二维码添加作者微信"
     echo   "█████████████████████████████████████
 █████████████████████████████████████
