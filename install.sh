@@ -118,7 +118,7 @@ EOL
       OAUTH_URL: "http://chatgpt-share-server-fox:6956/api/chatShareServer/oauth"
       APIAUTH: ${APIAUTH}
     volumes:
-      - ./config.yaml:/app/config.yaml
+      - ./gpt_config.yaml:/app/config.yaml
       - ./data/chatgpt-share-server/:/app/data/
 EOL
     fi
@@ -290,9 +290,7 @@ main() {
 
     # 打印安全提醒
     echo -e "\n${YELLOW}[⚠️ 安全提醒]${NC}"
-    echo -e "为了确保服务安全，请立即执行以下操作："
-    echo -e "1. 登录各个服务后台并修改默认密码"
-    echo -e "2. 默认账号密码："
+    echo -e "默认账号密码："
     echo -e "   - 管理员账号: admin"
     echo -e "   - 默认密码: 123456"
     echo -e "请自行到nginx配置反代"

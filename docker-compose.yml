@@ -34,7 +34,7 @@ services:
       OAUTH_URL: "http://chatgpt-share-server-fox:6956/api/chatShareServer/oauth"
       APIAUTH: Doraemon
     volumes:
-      - ./config.yaml:/app/config.yaml
+      - ./gpt_config.yaml:/app/config.yaml
       - ./data/chatgpt-share-server/:/app/data/
   ## grok-mirror
   grok-share-server:
