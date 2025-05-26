@@ -267,19 +267,14 @@ main() {
     # 生成 docker-compose.yml
     generate_docker_compose
     
-    # 检查是否从fox.sh调用，如果是则不在这里启动服务
-    if [ -z "$FOX_APIAUTH" ]; then
-        # 只有在直接运行install.sh时才启动服务
-        print_message "正在启动服务..."
-        chmod +x restart.sh
-        ./restart.sh    
-        print_message "安装完成！"
-        print_message "服务状态："
-        docker compose ps
-    else
-        # 从fox.sh调用时，只生成配置文件，不启动服务
-        print_message "配置文件生成完成！"
-    fi
+
+    print_message "正在启动服务..."
+    chmod +x restart.sh
+    ./restart.sh    
+    print_message "安装完成！"
+    print_message "服务状态："
+    docker compose ps
+
     
     # 打印端口使用情况
     echo -e "\n${GREEN}[端口使用情况]${NC}"
@@ -291,11 +286,6 @@ main() {
     fi
     if [ "$INSTALL_GPT" = true ]; then
         echo -e "GPT: 8300"
-    fi
-    
-    # 如果安装了任何AI服务，显示fox管理后台
-    if [ "$INSTALL_GPT" = true ] || [ "$INSTALL_GROK" = true ] || [ "$INSTALL_DDD" = true ]; then
-        echo -e "Fox管理后台: http://域名:8400"
     fi
 
     # 打印安全提醒
