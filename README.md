@@ -14,18 +14,106 @@ Fox 是 **ChatGPT Share Server** 的商业化外挂二开版本，完美兼容�
 
 ## ✨ 特色功能
 
-| 功能 | 状态 | 描述 |
-|:-----|:----:|:-----|
-| 🔐 登录注册 | ✅ | 支持邮箱注册和登录 |
-| 💰 多种权益售卖 | ✅ | 支持免费节点、4o节点、PLUS节点 |
-| 🤖 Claude支持 | ✅ | 支持对接始皇 fuclaude |
-| 💳 站内购买 | ✅ | 自定义售卖计划，支持易支付（后续支持更多支付渠道）与优惠券 |
-| 🎫 站内兑换 | ✅ | 支持卡密生成和兑换 |
-| ⚡ 用户速率限制 | ✅ | 不同用户不同速率限制 |
-| 🛡️ 违禁词管理 | ✅ | 触发违禁词停止对话 |
-| 📤 对话导出 | ✅ | 支持导出聊天记录 |
-| 🤝 邀请返现 | ⏳ | 开发中 |
-| ✨ 更多功能 | ⏳ | 开发中 |
+<div align="center">
+
+<table>
+  <thead>
+    <tr>
+      <th>🌟 功能</th>
+      <th>状态</th>
+      <th>描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>🔐 <b>登录注册</b></td>
+      <td>✅</td>
+      <td>支持邮箱注册和登录</td>
+    </tr>
+    <tr>
+      <td>💰 <b>多种权益售卖</b></td>
+      <td>✅</td>
+      <td>支持免费节点、4o节点、PLUS节点、claude、grok</td>
+    </tr>
+    <tr>
+      <td>🤖 <b>Claude 支持</b></td>
+      <td>✅</td>
+      <td>支持傻傻大佬的 Claude，支持对接始皇 fuclaude，（统一后台管理）</td>
+    </tr>
+    <tr>
+      <td>🦾 <b>grok 支持</b></td>
+      <td>✅</td>
+      <td>支持傻傻大佬的 grok，（统一后台管理）</td>
+    </tr>
+    <tr>
+      <td>💳 <b>站内购买</b></td>
+      <td>✅</td>
+      <td>自定义售卖计划，支持易支付（后续支持更多支付渠道）与优惠券</td>
+    </tr>
+    <tr>
+      <td>🎫 <b>站内兑换</b></td>
+      <td>✅</td>
+      <td>支持卡密生成和兑换</td>
+    </tr>
+    <tr>
+      <td>⚡ <b>分组用户速率限制</b></td>
+      <td>✅</td>
+      <td>不同用户不同速率限制（claude、grok、gpt 一体限速）</td>
+    </tr>
+    <tr>
+      <td>🛡️ <b>违禁词管理</b></td>
+      <td>✅</td>
+      <td>触发违禁词停止对话（claude、grok、gpt 统一违禁词管理）</td>
+    </tr>
+    <tr>
+      <td>📊 <b>统计功能</b></td>
+      <td>✅</td>
+      <td>用户统计、对话统计、订单统计</td>
+    </tr>
+    <tr>
+      <td>📤 <b>对话导出</b></td>
+      <td>✅</td>
+      <td>支持导出聊天记录</td>
+    </tr>
+    <tr>
+      <td>✨ <b>更多功能</b></td>
+      <td>⏳</td>
+      <td>开发中，敬请期待</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+
+## 📸 功能展示
+
+<div align="center">
+
+### 登录注册界面
+![登录注册界面](https://raw.githubusercontent.com/xiaomifengD/xiaomifengD/refs/heads/main/img/login.jpg)
+
+### 主界面
+![主界面](https://raw.githubusercontent.com/xiaomifengD/xiaomifengD/refs/heads/main/img/main.png)
+
+### 分组限速
+![分组限速](https://raw.githubusercontent.com/xiaomifengD/xiaomifengD/refs/heads/main/img/rate.png)
+
+### 商店购买
+![商店购买](https://raw.githubusercontent.com/xiaomifengD/xiaomifengD/refs/heads/main/img/purchase.png)
+
+### 商店兑换
+![商店兑换](https://raw.githubusercontent.com/xiaomifengD/xiaomifengD/refs/heads/main/img/exchange.png)
+
+### 移动端适配
+![移动端适配](https://raw.githubusercontent.com/xiaomifengD/xiaomifengD/refs/heads/main/img/mobile.png)
+
+### 站内通知
+![站内通知](https://raw.githubusercontent.com/xiaomifengD/xiaomifengD/refs/heads/main/img/notice.png)
+
+### 管理后台
+![管理后台](https://raw.githubusercontent.com/xiaomifengD/xiaomifengD/refs/heads/main/img/houtai.png)
+
+</div>
 
 ## 🎯 演示站点
 
@@ -45,18 +133,8 @@ curl -sSfL https://raw.githubusercontent.com/xiaomifengD/chatgpt-share-fox-deplo
 
 ## 🔑 授权说明
 
-本项目需要付费授权使用。目前处于开发阶段，可联系作者获取免费授权。
+本项目需要付费授权使用。目前定价 70r/月，第一个月半价。
 
-## 🛠️ 技术栈
-
-### 后端技术
-- ⚡ Java SpringBoot 3
-- 📦 MySQL
-- 🚀 Redis
-
-### 前端技术
-- 🎨 Vue 3
-- 🎯 Element Plus
 
 ## 🙏 特别感谢
 
@@ -64,8 +142,9 @@ curl -sSfL https://raw.githubusercontent.com/xiaomifengD/chatgpt-share-fox-deplo
 
 - [xyhelper/chatgpt-share-server](https://github.com/xyhelper/chatgpt-share-server) - 提供核心的ChatGPT共享服务功能
 - [wozulong/fuclaude](https://github.com/wozulong/fuclaude) - 提供Claude支持
+- [lyy/fuclaude](https://github.com/lyy0709/ddclaude-share-server-deploy) - 提供Claude支持
+- [lyy/grok](https://github.com/lyy0709/grok-share-server-deploy) - 提供Grok支持
 
-感谢栋哥和始皇的贡献！
 
 ## 📞 联系方式
 
