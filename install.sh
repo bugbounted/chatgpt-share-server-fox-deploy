@@ -161,9 +161,12 @@ EOL
       AUDIT_LIMIT_URL: "http://chatgpt-share-server-fox:6956/api/claude/auditLimit"
       OAUTH_URL: "http://chatgpt-share-server-fox:6956/api/chatShareServer/claude/oauth"
       APIAUTH: ${APIAUTH}
+      LICENSE_CODE: "" # 授权码
     volumes:
       - ./claude_config.yaml:/app/config.yaml
       - ./data/dddd-share-server/:/app/data/
+      - /proc:/host/proc:ro    # 挂载宿主机的 /proc 目录，只读
+      - /sys:/host/sys:ro      # 挂载宿主机的 /sys 目录，只读
 EOL
     fi
 

@@ -317,19 +317,41 @@ setup_auto_backup() {
     echo -e "${YELLOW}备份日志将保存在 backups/auto_backup.log${NC}"
 }
 
+# Function to update and restart fox services
+update_and_restart_fox() {
+    if ! check_docker; then
+        echo "Docker 未安装，请先安装 Docker。"
+        return 1
+    fi
+    
+    if [ ! -f "docker-compose.yml" ]; then
+        echo "未找到 docker-compose.yml 文件，请先安装 AI 服务。"
+        return 1
+    fi
+    
+    echo -e "${BLUE}正在更新 fox 服务...${NC}"
+    docker compose pull chatgpt-share-server-fox
+    
+    echo -e "${BLUE}正在重启 fox 服务...${NC}"
+    docker compose up -d chatgpt-share-server-fox
+    
+    echo -e "${GREEN}fox 服务已更新并重启完成！${NC}"
+}
+
 # Main menu
 while true; do
     echo -e "${GREEN}请选择操作：${NC}"
     echo -e "${YELLOW}1. 安装 Docker${NC}"
     echo -e "${YELLOW}2. 安装 fox 服务${NC}"
-    echo -e "${BLUE}3. 重启服务${NC}"
-    echo -e "${BLUE}4. 停止服务${NC}"
-    echo -e "${MAGENTA}5. 备份数据库${NC}"
-    echo -e "${MAGENTA}6. 还原数据库${NC}"
-    echo -e "${CYAN}7. 设置自动备份${NC}"
-    echo -e "${RED}8. 退出${NC}"
+    echo -e "${BLUE}3. 更新并重启 fox 服务${NC}"
+    echo -e "${BLUE}4. 更新并重启所有服务${NC}"
+    echo -e "${BLUE}5. 停止服务${NC}"
+    echo -e "${MAGENTA}6. 备份数据库${NC}"
+    echo -e "${MAGENTA}7. 还原数据库${NC}"
+    echo -e "${CYAN}8. 设置自动备份${NC}"
+    echo -e "${RED}9. 退出${NC}"
     
-    read -p "请输入选项 (1-8): " choice < /dev/tty
+    read -p "请输入选项 (1-9): " choice < /dev/tty
     
     case $choice in
         1)
@@ -339,21 +361,24 @@ while true; do
             install_ai_services
             ;;
         3)
-            restart_services
+            update_and_restart_fox
             ;;
         4)
-            stop_services
+            restart_services
             ;;
         5)
-            backup_databases
+            stop_services
             ;;
         6)
-            restore_databases
+            backup_databases
             ;;
         7)
-            setup_auto_backup
+            restore_databases
             ;;
         8)
+            setup_auto_backup
+            ;;
+        9)
             echo -e "${RED}正在退出...${NC}"
             exit 0
             ;;
