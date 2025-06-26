@@ -56,7 +56,7 @@ Fox 是 **ChatGPT Share Server** 的商业化外挂二开版本，完美兼容�
       <td>支持卡密生成和兑换</td>
     </tr>
     <tr>
-      <td>⚡ <b>分组用户速率限制</b></td>
+      <td>⚡ <b>分组用户限速</b></td>
       <td>✅</td>
       <td>不同用户不同速率限制（claude、grok、gpt 一体限速）</td>
     </tr>
