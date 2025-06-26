@@ -60,6 +60,11 @@ Fox 是 **ChatGPT Share Server** 的商业化外挂二开版本，完美兼容�
       <td>✅</td>
       <td>不同用户不同速率限制（claude、grok、gpt 一体限速）</td>
     </tr>
+        <tr>
+      <td>🚗 <b>虚拟车队</b></td>
+      <td>✅</td>
+      <td>支持虚拟车队功能（可以设定PLUS节点虚拟车的数量）</td>
+    </tr>
     <tr>
       <td>🛡️ <b>违禁词管理</b></td>
       <td>✅</td>
@@ -80,6 +85,7 @@ Fox 是 **ChatGPT Share Server** 的商业化外挂二开版本，完美兼容�
       <td>⏳</td>
       <td>开发中，敬请期待</td>
     </tr>
+
   </tbody>
 </table>
 
