@@ -174,7 +174,7 @@ EOL
     if [ "$INSTALL_GPT" = true ] || [ "$INSTALL_GROK" = true ] || [ "$INSTALL_DDD" = true ]; then
         cat >> docker-compose.yml << EOL
   chatgpt-share-server-fox:
-    image: xiaomifengd/chatgpt-share-server-fox:latest
+    image: xiaomifengd/chatgpt-share-server-fox:online
     restart: always
     ports:
       - "8400:6956"

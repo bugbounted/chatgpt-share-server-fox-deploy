@@ -74,7 +74,7 @@ services:
       - /proc:/host/proc:ro    # 挂载宿主机的 /proc 目录，只读
       - /sys:/host/sys:ro      # 挂载宿主机的 /sys 目录，只读
   chatgpt-share-server-fox:
-    image: xiaomifengd/chatgpt-share-server-fox:latest
+    image: xiaomifengd/chatgpt-share-server-fox:online
     restart: always
     ports:
       - "8400:6956"
