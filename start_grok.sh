@@ -1,2 +1,2 @@
 #!/bin/bash
-exec ./grok-server
+exec /app/grok-share-server/grok-share-server --config /app/grok-share-server/config.yaml
