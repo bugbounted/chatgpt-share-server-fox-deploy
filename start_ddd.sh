@@ -1,2 +1,2 @@
 #!/bin/bash
-exec ./ddd-server
+exec /app/dddd-share-server/dddd-share-server --config /app/dddd-share-server/config.yaml
