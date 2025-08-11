@@ -33,6 +33,14 @@ COPY ./data/dddd-share-server/ /app/dddd-share-server/data/
 
 COPY ./data/chatgpt-share-server-fox/ /data/chatgpt-share-server-fox/
 
+# Copy start scripts into /app
+COPY ./start_gpt.sh /app/start_gpt.sh
+COPY ./start_grok.sh /app/start_grok.sh
+COPY ./start_ddd.sh /app/start_ddd.sh
+
+# Make start scripts executable
+RUN chmod +x /app/start_gpt.sh /app/start_grok.sh /app/start_ddd.sh
+
 # Copy supervisord and nginx config files
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY nginx.conf /etc/nginx/nginx.conf
